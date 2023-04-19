@@ -32,6 +32,7 @@ router.post("/", (req, res) => {
     })
     .catch((err) => {
       res.json(err);
+    });
 });
 
 router.put("/:id", (req, res) => {
@@ -40,11 +41,12 @@ router.put("/:id", (req, res) => {
     where: {
       name: req.params.id,
     },
+  });
 });
 
 router.delete("/:id", (req, res) => {
   // delete on tag by its `id` value
-  const tagData = await Tag.destroy({
+  const tagData = Tag.destroy({
     where: {
       tag_id: req.params.tag_id,
     },
