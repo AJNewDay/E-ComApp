@@ -43,6 +43,18 @@ router.post("/", (req, res) => {
     .catch((err) => {
       res.json(err);
     });
+  router.post("/seed", (req, res) => {
+    Product.bulkCreate([
+      {
+        product_name: "Basketball",
+        price: 200.0,
+        stock: 3,
+        tagIds: [1, 2, 3, 4],
+      },
+    ]).then(() => {
+      res.send("Seeding Success!");
+    });
+  });
 
   Product.create(req.body)
     .then((product) => {
@@ -110,6 +122,13 @@ router.put("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   // delete one product by its `id` value
+  const productData = Product.destroy({
+    where: {
+      product_id: req.params.product_id,
+    },
+  });
+
+  return res.json(productData);
 });
 
 module.exports = router;
