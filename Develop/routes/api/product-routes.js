@@ -7,9 +7,11 @@ const { Product, Category, Tag, ProductTag } = require("../../models");
 router.get("/", (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
-  Product.findAll().then((Category, Tag) => {
-    res.json(Category, Tag);
+
+  Product.findAll().then((data) => {
+    return res.json(data);
   });
+  // return res.json({ success: "false" });
 });
 
 // get one product
@@ -26,7 +28,7 @@ router.get("/:id", (req, res) => {
   });
 });
 
-// create new product
+// create new product dynamic
 router.post("/", (req, res) => {
   /* req.body should look like this...
   {
